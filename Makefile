@@ -1,7 +1,7 @@
 # Project settings
-PROJECT := hwplatform
-PACKAGE := hwplatform
-REPOSITORY := brendan0powers/hwplatform
+PROJECT := bakelite
+PACKAGE := bakelite
+REPOSITORY := brendan0powers/bakelite
 
 # Project paths
 PACKAGES := $(PACKAGE) tests

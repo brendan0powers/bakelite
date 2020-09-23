@@ -1,9 +1,9 @@
-site_name: hwplatform
-site_description: hwplatform project description
+site_name: bakelite
+site_description: bakelite project description
 site_author: Brendan Powers
 
-repo_url: https://github.com/brendan0powers/hwplatform
-edit_uri: https://github.com/brendan0powers/hwplatform/edit/master/docs
+repo_url: https://github.com/brendan0powers/bakelite
+edit_uri: https://github.com/brendan0powers/bakelite/edit/master/docs
 
 theme: readthedocs
 
