@@ -1,15 +1,13 @@
-# Overview
+# Bakelite
 
-bakelite project description
+Bakelite is a utility that automates the tedious tasks involved in communicating with hardware.
+You define your protocol defenition, and Bakelite will generate source code for you.
 
-This project was generated with [cookiecutter](https://github.com/audreyr/cookiecutter) using [jacebrowning/template-python](https://github.com/jacebrowning/template-python).
 
-[![Unix Build Status](https://img.shields.io/travis/brendan0powers/bakelite.svg?label=unix)](https://travis-ci.org/brendan0powers/bakelite)
-[![Windows Build Status](https://img.shields.io/appveyor/ci/brendan0powers/bakelite.svg?label=windows)](https://ci.appveyor.com/project/brendan0powers/bakelite)
-[![Coverage Status](https://img.shields.io/coveralls/brendan0powers/bakelite.svg)](https://coveralls.io/r/brendan0powers/bakelite)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/brendan0powers/bakelite.svg)](https://scrutinizer-ci.com/g/brendan0powers/bakelite)
-[![PyPI Version](https://img.shields.io/pypi/v/bakelite.svg)](https://pypi.org/project/bakelite)
-[![PyPI License](https://img.shields.io/pypi/l/bakelite.svg)](https://pypi.org/project/bakelite)
+## Features
+* Supported Languages
+  * C++
+  * Python
 
 # Setup
 
@@ -19,24 +17,45 @@ This project was generated with [cookiecutter](https://github.com/audreyr/cookie
 
 ## Installation
 
-Install it directly into an activated virtual environment:
+Install it via pip.
 
 ```text
 $ pip install bakelite
-```
-
-or add it to your [Poetry](https://poetry.eustace.io/) project:
-
-```text
-$ poetry add bakelite
 ```
 
 # Usage
 
 After installation, the package can imported:
 
+Craete a protocol defenition file `my_proto.bakelite`.
 ```text
-$ python
->>> import bakelite
->>> bakelite.__version__
+struct TestMessage {
+  message: string[128]
+}
+
+struct Ack {
+  code: uint8
+}
+
+protocol {
+  maxLength = 256
+  framing = COBS
+  crc = CRC8
+
+  messageIds {
+    TestMessage = 1
+    Ack = 2
+  }
+}
+```
+
+Then generate bindings for the languages you use.
+
+```bash
+# Generate C++ Bindings
+$ bakelite runtime -l cpptiny -o bakelite.h
+$ bakelite gen -l cpptiny -i my_proto.bakelite -o my_proto.h
+
+# Generate Python Bindings
+$ bakelite gen -l python -i my_proto.bakelite -o my_proto.py
 ```
